@@ -2,9 +2,9 @@
 namespace classes\collection;
 use classes\collection\accounts;
 use classes\collection\todos;
-use classes\database\dbConn;
+use classes\database\dbconn;
 use \PDO;
-use classes\htmldisplay\display;
+use classes\view\view;
 
 abstract class collection {
     static public function create() {
@@ -13,7 +13,7 @@ abstract class collection {
     }
     
     static public function findAll() {
-        $db = dbConn::getConnection();
+        $db = dbconn::getConnection();
         $tableName = get_called_class();
         $tableName=str_replace("classes\collection\\","",$tableName);
         $sql = 'SELECT * FROM ' . $tableName;
@@ -27,7 +27,7 @@ abstract class collection {
         public static function displayTable($recordsSet,$tableName){
           $display='';
           $display.='<table border=2>';
-          $db1=dbConn::getConnection();
+          $db1=dbconn::getConnection();
           $sql1 = 'SHOW COLUMNS FROM '.$tableName;
           $stmt1 = $db1->prepare($sql1);
           $stmt1->execute();
@@ -44,11 +44,12 @@ abstract class collection {
             $display.="<tr>";
           }    
           $display.='</table>';
-          display::printThis($display);
+          echo $display;
+          //display::printThis($display);
         }
                   
     static public function findOne($id) {
-        $db = dbConn::getConnection();
+        $db = dbconn::getConnection();
         $tableName = get_called_class();
         $tableName=str_replace("classes\collection\\","",$tableName);
         $sql = 'SELECT * FROM ' . $tableName . ' WHERE id =' . $id;
