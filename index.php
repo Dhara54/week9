@@ -1,6 +1,5 @@
 <?php
 
-
 use classes\database\dbconn;
 use classes\view\view;
 use classes\collection\accounts;
@@ -14,7 +13,8 @@ use classes\model\todo;
 
 class Manage{
   public static function autoload($class){
-    include $class.'.php';
+    $class=str_replace("\\","/",$class).".php";
+    include $class;
   }
 }
 
@@ -33,7 +33,7 @@ class main{
      echo '<br>';
      
      echo 'Creating new id in accounts table.<br>';
-     $record = new account();
+     $record = new classes\model\account;
      $record->id='';
      $record->email='dhara@gmail.com';
      $record->fname='Dhara';
@@ -42,19 +42,19 @@ class main{
      $record->birthday='2017-05-04';
      $record->gender='female';
      $record->password='asdf';
-    $record->save();
+     $record->save();
      echo 'After adding record.<br>';
      accounts::findAll();
      echo '<br>';
      
      echo 'Searching id in accounts table.<br>';
-     $id='20';
+     $id='21';
      accounts::findOne($id);
      
      echo '<br>';
      echo 'Updating id<br>';
-     $record = new account();
-     $record->id='20';
+     $record = new classes\model\account;
+     $record->id='21';
      $record->email='dp@gmail.com';
      $record->fname='dha';
      $record->lname='p';
@@ -69,8 +69,8 @@ class main{
      //print_r($record1);
   
     echo 'Deleting from accounts.<br>';
-    $record=new account();
-    $record->id='20';
+    $record = new classes\model\account;
+    $record->id='21';
     $record->delete();
     echo 'After Deleting id<br>';
     accounts::findAll();
@@ -100,13 +100,13 @@ class main{
      echo '<br>';
      
      echo 'Searching new created id in todos table.<br>';
-     $id=20;
+     $id=21;
      todos::findOne($id);
      
      echo '<br>';
      echo 'updating details of id.<br>';
      $record = new todo();
-     $record->id=20;
+     $record->id=21;
      $record->owneremail='xyz@gmail.com';
      $record->ownerid='2';
      $record->createddate='2017-07-08 00:00:00';
@@ -120,7 +120,7 @@ class main{
     
     echo 'To delete id from todos.<br>';
     $record=new todo();
-    $record->id='20';
+    $record->id='21';
     
 
     $record->delete();
